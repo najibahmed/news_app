@@ -9,6 +9,8 @@ class HomeTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth=MediaQuery.of(context).size.width;
+    final screenHeight=MediaQuery.of(context).size.height;
     return CustomScrollView(
       slivers: [
         const CustomSliverAppBar(),
@@ -16,7 +18,6 @@ class HomeTab extends ConsumerWidget {
           child: Column(
             children: [
               HorizontalCardList(
-                title: 'Featured Items',
                 items: List.generate(10, (index) => 'Item $index'),
               ),
               const SizedBox(height: 16),

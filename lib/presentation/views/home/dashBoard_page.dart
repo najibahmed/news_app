@@ -31,6 +31,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth=MediaQuery.of(context).size.width;
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: CustomBottomNavBar(
