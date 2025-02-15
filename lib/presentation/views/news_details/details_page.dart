@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app/core/utils/dimension.dart';
 import '../../../models/news_model.dart';
-import 'details_provider.dart';
 
 class DetailsPage extends ConsumerWidget {
   final NewsArticle article;
@@ -20,7 +20,6 @@ class DetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final blogPostAsync = ref.watch(blogPostProvider(id));
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -48,7 +47,7 @@ class DetailsPage extends ConsumerWidget {
               top: screenHeight * .3 - 20,
               child: Container(
                   height: 500,
-                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  padding:  EdgeInsets.only(left:Dimension.width10(screenWidth), right: Dimension.width10(screenWidth)),
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -80,11 +79,16 @@ class DetailsPage extends ConsumerWidget {
                                           size: 16, color: Colors.white),
                                     ),
                                     const SizedBox(width: 8),
-                                    Text(
-                                      article.author!,
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 14,
+                                    Container(
+                                      width: screenWidth*.45,
+                                      child: Text(
+                                        overflow: TextOverflow.visible,
+                                        maxLines: 3,
+                                        article.author!,
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(width: 8),

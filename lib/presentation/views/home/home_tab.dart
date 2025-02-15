@@ -17,9 +17,7 @@ class HomeTab extends ConsumerWidget {
     final screenHeight=MediaQuery.of(context).size.height;
     final newsAsyncValue = ref.watch(newsProvider);
     final techNewsAsyncValue = ref.watch(techNewsProvider);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
+    return  CustomScrollView(
         slivers: [
           const CustomSliverAppBar(),
           SliverToBoxAdapter(
@@ -71,7 +69,6 @@ class HomeTab extends ConsumerWidget {
             ),
           ),
         ],
-      ),
     );
   }
 }

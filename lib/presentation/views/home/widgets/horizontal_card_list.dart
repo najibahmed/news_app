@@ -39,7 +39,7 @@ class HorizontalCardList extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
-            seeMore
+            !seeMore
                 ? const SizedBox.shrink():TextButton(onPressed: (){},
                 child: Text('See More',style: TextStyle(color: Colors.blue),))
           ],

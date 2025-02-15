@@ -3,8 +3,7 @@
 class Dimension{
   static double appBarHeight(screenHeight)=>screenHeight/6.56;
 
-  //  Screen Height:826.9090909090909
-  // Screen Width:392.72727272727275
+
 
 
 
@@ -14,6 +13,7 @@ class Dimension{
   static double featureItemCardHeight(screenHeight)=> screenHeight/2.42;
 
   static double height10(screenHeight)=>screenHeight/93.3;
+  static double width10(screenWidth)=>screenWidth/43;
 
 
 

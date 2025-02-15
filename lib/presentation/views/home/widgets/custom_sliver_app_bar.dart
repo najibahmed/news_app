@@ -1,5 +1,6 @@
 // presentation/views/home/widgets/custom_sliver_app_bar.dart
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:news_app/core/utils/dimension.dart';
 import 'package:news_app/presentation/widgets/big_text.dart';
 import 'package:news_app/presentation/widgets/small_text.dart';
@@ -30,7 +31,7 @@ class CustomSliverAppBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SmallText(text: "Good Morning,\nTrung",size: 14,color: const Color(0xff6D6265),),
-                    BigText(text: "Sun 9 April, 2023",size: 18,)
+                    BigText(text: DateFormat('MMM d, yyyy').format(DateTime.now()),size: 18,)
                     ],
                   ),
                 ),
