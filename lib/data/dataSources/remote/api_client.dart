@@ -1,5 +1,6 @@
 // data/datasources/remote/api_client.dart
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiClient {
   late final Dio _dio;
@@ -8,11 +9,21 @@ class ApiClient {
     _dio = Dio(
       BaseOptions(
         baseUrl: 'YOUR_BASE_URL',
-        connectTimeout: const Duration(seconds: 5),
-        receiveTimeout: const Duration(seconds: 3),
+        connectTimeout: const Duration(seconds: 15),
+        receiveTimeout: const Duration(seconds: 15),
       ),
-    );
+    )
+      ..interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+      ));
     _initializeInterceptors();
+
   }
 
   void _initializeInterceptors() {

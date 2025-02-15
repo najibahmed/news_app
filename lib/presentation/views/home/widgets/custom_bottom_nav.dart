@@ -13,23 +13,28 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Colors.transparent,
       currentIndex: currentIndex,
       onTap: onTap,
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
+          backgroundColor: Colors.transparent,
           icon: Icon(Icons.home),
           label: 'Home',
         ),
         BottomNavigationBarItem(
+          backgroundColor: Colors.transparent,
           icon: Icon(Icons.explore),
           label: 'Explore',
         ),
         BottomNavigationBarItem(
+          backgroundColor: Colors.transparent,
           icon: Icon(Icons.archive),
           label: 'Archive',
         ),
         BottomNavigationBarItem(
+          backgroundColor: Colors.transparent,
           icon: Icon(Icons.person),
           label: 'Profile',
         ),
