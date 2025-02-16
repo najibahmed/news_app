@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:news_app/presentation/views/home/widgets/custom_bottom_nav.dart';
 import '../archive/archive_tab.dart';
 import '../explore/explore_tab.dart';
+import '../explore/explore_tab_view.dart';
 import '../profile/profile_tab.dart';
 import 'home_tab.dart';
 
@@ -19,7 +20,7 @@ class _DashboardState extends State<Dashboard> {
 
   final _pages = [
     const HomeTab(),
-     ExploreTab(),
+     ExploreTabs(),
     const ArchiveTab(),
     const ProfileTab()
   ];
