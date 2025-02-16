@@ -1,7 +1,7 @@
 
 
 class Dimension{
-  static double appBarHeight(screenHeight)=>screenHeight/6.56;
+  static double appBarHeight(screenHeight)=>screenHeight/6.85;
 
 
 

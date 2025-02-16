@@ -1,5 +1,5 @@
 // presentation/views/home/home_tab.dart
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +17,7 @@ class HomeTab extends ConsumerWidget {
     final screenHeight=MediaQuery.of(context).size.height;
     final newsAsyncValue = ref.watch(newsProvider);
     final techNewsAsyncValue = ref.watch(techNewsProvider);
+
     return  CustomScrollView(
         slivers: [
           const CustomSliverAppBar(),

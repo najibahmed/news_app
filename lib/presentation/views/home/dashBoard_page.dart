@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:news_app/presentation/views/home/widgets/custom_bottom_nav.dart';
 import '../archive/archive_tab.dart';
 import '../explore/explore_tab.dart';
@@ -18,7 +19,7 @@ class _DashboardState extends State<Dashboard> {
 
   final _pages = [
     const HomeTab(),
-    const ExploreTab(),
+     ExploreTab(),
     const ArchiveTab(),
     const ProfileTab()
   ];
@@ -33,8 +34,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final screenWidth=MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: _pages[_selectedIndex],
+    body: _pages[_selectedIndex],
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _selectedIndex,
         onTap: (index) => onTapped(index),

@@ -7,7 +7,7 @@ class NewsRepository {
   NewsRepository({required this.apiClient});
 
   Future<List<NewsArticle>> fetchTopBusinessHeadlinesUs() async {
-    final response = await apiClient.get(ApiConstants.TopBusinessHeadlinesUS);
+    final response = await apiClient.get(ApiConstants.TopBusinessHeadlines);
 
     if (response.statusCode == 200) {
       final data = response.data;

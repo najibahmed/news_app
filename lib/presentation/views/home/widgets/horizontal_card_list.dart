@@ -1,6 +1,7 @@
 // presentation/views/home/widgets/horizontal_card_list.dart
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news_app/presentation/widgets/big_text.dart';
 import 'package:news_app/presentation/widgets/small_text.dart';
@@ -8,8 +9,9 @@ import 'package:news_app/routes/app_router.dart';
 
 import '../../../../core/utils/dimension.dart';
 import '../../../../models/news_model.dart';
+import '../../../providers/theme_provider.dart';
 
-class HorizontalCardList extends StatelessWidget {
+class HorizontalCardList extends ConsumerWidget {
   final String? title;
   final bool seeMore;
   final List<NewsArticle> items;
@@ -22,9 +24,10 @@ class HorizontalCardList extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final themeMode = ref.watch(themeModeProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,8 +55,9 @@ class HorizontalCardList extends StatelessWidget {
             itemBuilder: (context, index) {
               NewsArticle item= items[index];
               return GestureDetector(
-                onTap: () => context.push(AppRouter.getDetails("2"),extra: item),
+                onTap: () => context.push(AppRouter.details,extra: item),
                 child: Card(
+                  color: themeMode==ThemeMode.light? Colors.white:Colors.black ,
                   margin: EdgeInsets.only(
                     left: index == 0 ? 16 : 8,
                     right: index == items.length - 1 ? 16 : 8,
@@ -71,11 +75,14 @@ class HorizontalCardList extends StatelessWidget {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.all(Radius.circular(8)),
-                              child: CachedNetworkImage(
-                                imageUrl: item.urlToImage??item.url!,
-                                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
-                                fit:BoxFit.cover,
+                              child: Hero(
+                                tag: item.title!,
+                                child: CachedNetworkImage(
+                                  imageUrl: item.urlToImage??item.url!,
+                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                  fit:BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -88,10 +95,13 @@ class HorizontalCardList extends StatelessWidget {
                                 BigText(
                                     text: item.title!,
                                         //"Experience the Serenity of Japan's Traditional Countryside",
-                                    size: 22),
+                                    size: 22,
+                                color: Theme.of(context).textTheme.bodyLarge!.color,
+                                ),
                                 SmallText(
                                   text: seeMore? "Technology":"BusinessHeadlines",
                                   size: 12,
+                                  color:   Theme.of(context).hintColor
                                 )
                               ],
                             ),

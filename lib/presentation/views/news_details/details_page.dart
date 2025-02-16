@@ -7,14 +7,14 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app/core/utils/dimension.dart';
 import '../../../models/news_model.dart';
+import '../../providers/theme_provider.dart';
 
 class DetailsPage extends ConsumerWidget {
   final NewsArticle article;
-  final String id;
+
 
   const DetailsPage({
     super.key,
-    required this.id,
     required this.article
   });
 
@@ -22,23 +22,26 @@ class DetailsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
+    final themeMode = ref.watch(themeModeProvider);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:themeMode==ThemeMode.light?Colors.white:Colors.black,
       body: Stack(
         children: [
           Positioned(
             left: 0,
             right: 0,
-            child: Container(
-              width: double.maxFinite,
-              height: screenHeight * .3,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: CachedNetworkImageProvider(
-                        article.urlToImage??article.url!,
-                      ),
-                      fit: BoxFit.cover)),
+            child: Hero(
+              tag: article.title!,
+              child: Container(
+                width: double.maxFinite,
+                height: screenHeight * .32,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          article.urlToImage??article.url!,
+                        ),
+                        fit: BoxFit.cover)),
+              ),
             ),
           ),
           Positioned(
@@ -48,8 +51,8 @@ class DetailsPage extends ConsumerWidget {
               child: Container(
                   height: 500,
                   padding:  EdgeInsets.only(left:Dimension.width10(screenWidth), right: Dimension.width10(screenWidth)),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
+                  decoration:  BoxDecoration(
+                      color: themeMode==ThemeMode.light?Colors.white:Colors.black,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(32),
                         topRight: Radius.circular(32),
@@ -84,7 +87,7 @@ class DetailsPage extends ConsumerWidget {
                                       child: Text(
                                         overflow: TextOverflow.visible,
                                         maxLines: 3,
-                                        article.author!,
+                                        article.author??"Empty Author",
                                         style: const TextStyle(
                                           color: Colors.grey,
                                           fontSize: 14,
@@ -112,7 +115,7 @@ class DetailsPage extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  article.content!,
+                                  article.content??"Empty Content",
                                   style: const TextStyle(
                                     fontSize: 16,
                                     height: 1.6,
@@ -135,7 +138,7 @@ class DetailsPage extends ConsumerWidget {
             height: screenHeight*.1,
             padding: const EdgeInsets.only(top: 30, bottom: 30, right: 20, left: 20),
             decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.0),
+                color: Colors.grey.withOpacity(0.2),
                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(40),
                     topLeft: Radius.circular(40))),
@@ -192,13 +195,13 @@ class _ActionButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(
           children: [
-            Icon(icon, size: 20, color: Colors.black),
+            Icon(icon, size: 20, color: Theme.of(context).buttonTheme.colorScheme!.surfaceTint),
             if (label != null) ...[
               const SizedBox(width: 4),
               Text(
                 label!,
-                style: const TextStyle(
-                  color: Colors.grey,
+                style:  TextStyle(
+                  color: Theme.of(context).textTheme.bodyMedium!.color,
                   fontSize: 14,
                 ),
               ),

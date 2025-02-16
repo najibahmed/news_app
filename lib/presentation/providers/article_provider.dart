@@ -8,6 +8,6 @@ import '../../models/news_model.dart';
 final articleRepo = Provider((ref) => ArticleRepository(apiClient: ApiClient()));
 
  categoryArticlesProvider(String category) => FutureProvider<List<NewsArticle>>((ref) async {
-  final repository = ref.read(articleRepo);
-  return repository.fetchTopBusinessHeadlinesUs(category);
+  final repository = ref.watch(articleRepo);
+  return repository.fetchExploreCategory(category);
 });

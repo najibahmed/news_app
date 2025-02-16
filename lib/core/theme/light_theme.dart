@@ -6,7 +6,7 @@ class LightTheme {
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: ColorScheme.light(
-      primary: Colors.blue,
+      primary: Color(0xffE9EEFA),
       secondary: Colors.blueAccent,
       surface: Colors.white,
       error: Colors.red[700]!,

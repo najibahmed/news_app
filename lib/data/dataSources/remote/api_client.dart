@@ -1,5 +1,6 @@
 // data/datasources/remote/api_client.dart
 import 'package:dio/dio.dart';
+import 'package:news_app/core/constant/api_constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiClient {
@@ -8,7 +9,7 @@ class ApiClient {
   ApiClient() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: 'YOUR_BASE_URL',
+        baseUrl: ApiConstants.BASE_URL,
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
       ),
@@ -46,6 +47,7 @@ class ApiClient {
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) async {
     try {
       final response = await _dio.get(path, queryParameters: queryParameters);
+      print(response);
       return response;
     } catch (e) {
       rethrow;
