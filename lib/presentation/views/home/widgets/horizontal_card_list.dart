@@ -24,14 +24,15 @@ class HorizontalCardList extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final themeMode = ref.watch(themeModeProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             title == null
                 ? const SizedBox.shrink()
@@ -43,8 +44,13 @@ class HorizontalCardList extends ConsumerWidget {
                     ),
                   ),
             !seeMore
-                ? const SizedBox.shrink():TextButton(onPressed: (){},
-                child: Text('See More',style: TextStyle(color: Colors.blue),))
+                ? const SizedBox.shrink()
+                : TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'See More',
+                      style: TextStyle(color: Colors.blue),
+                    ))
           ],
         ),
         SizedBox(
@@ -53,11 +59,13 @@ class HorizontalCardList extends ConsumerWidget {
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
             itemBuilder: (context, index) {
-              NewsArticle item= items[index];
+              NewsArticle item = items[index];
               return GestureDetector(
-                onTap: () => context.push(AppRouter.details,extra: item),
+                onTap: () => context.push(AppRouter.details, extra: item),
                 child: Card(
-                  color: themeMode==ThemeMode.light? Colors.white:Colors.black ,
+                  color: themeMode == ThemeMode.light
+                      ? Colors.white
+                      : Colors.black,
                   margin: EdgeInsets.only(
                     left: index == 0 ? 16 : 8,
                     right: index == items.length - 1 ? 16 : 8,
@@ -67,42 +75,55 @@ class HorizontalCardList extends ConsumerWidget {
                       child: Column(
                         children: [
                           Container(
-                            height: Dimension.featureItemImgHeight(screenHeight),
+                            height:
+                                Dimension.featureItemImgHeight(screenHeight),
                             width: Dimension.featureItemCardWidth(screenWidth),
-                            decoration:  const BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.grey,
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
                               child: Hero(
                                 tag: item.title!,
                                 child: CachedNetworkImage(
-                                  imageUrl: item.urlToImage??item.url!,
-                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
-                                  fit:BoxFit.cover,
+                                  imageUrl: item.urlToImage ?? item.url!,
+                                  placeholder: (context, url) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  },
+                                  errorWidget: (context, url, error) {
+                                    print("Image error: $error");
+                                    return const Icon(Icons.error);
+                                  },
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                           ),
                           Container(
                             padding: const EdgeInsets.only(
-                                top: 16, right: 8, bottom: 16, left: 8),
+                                top: 8, right: 8, bottom: 8, left: 8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 BigText(
-                                    text: item.title!,
-                                        //"Experience the Serenity of Japan's Traditional Countryside",
-                                    size: 22,
-                                color: Theme.of(context).textTheme.bodyLarge!.color,
+                                  text: item.title!,
+                                  //"Experience the Serenity of Japan's Traditional Countryside",
+                                  size: 22,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .color,
                                 ),
                                 SmallText(
-                                  text: seeMore? "Technology":"BusinessHeadlines",
-                                  size: 12,
-                                  color:   Theme.of(context).hintColor
-                                )
+                                    text: seeMore
+                                        ? "Technology"
+                                        : "BusinessHeadlines",
+                                    size: 12,
+                                    color: Theme.of(context).hintColor)
                               ],
                             ),
                           )

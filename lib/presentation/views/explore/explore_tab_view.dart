@@ -101,8 +101,15 @@ class _ExploreTabState extends ConsumerState<ExploreTabs> {
                 //   date: 'May 1, 2023',
                 // );
                   final NewsArticle article= newsList[index];
+                  if(index==0){
+                    return _ArticleCard(
+                        imageUrl: article.urlToImage!,
+                        title: article.title!,
+                        author: article.author!,
+                        date: article.publishedAt!);
+                  }
                 return  _ArticleCard2(
-                      imageUrl: article.url?? article.urlToImage!,//'https://picsum.photos/400/200',
+                      imageUrl: article.urlToImage!,//'https://picsum.photos/400/200',
                       // Placeholder image
                       title: article.title!,
                       author: article.author!,
@@ -154,7 +161,7 @@ class _ArticleCard2 extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(
-                      width: 250,
+                      width: 220,
                       child: Text(
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -175,7 +182,7 @@ class _ArticleCard2 extends ConsumerWidget {
                         ),
                         const SizedBox(width: 8),
                         SizedBox(
-                          width: 100,
+                          width: 80,
                           child: Text(
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -192,11 +199,15 @@ class _ArticleCard2 extends ConsumerWidget {
                           style: TextStyle(color: Colors.grey),
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          date,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
+                        SizedBox(
+                          width:70,
+                          child: Text(
+                          overflow:TextOverflow.ellipsis,
+                            date,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                       ],
@@ -221,6 +232,95 @@ class _ArticleCard2 extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+class _ArticleCard extends ConsumerWidget {
+  final String imageUrl;
+  final String title;
+  final String author;
+  final String date;
+
+  const _ArticleCard({
+    required this.imageUrl,
+    required this.title,
+    required this.author,
+    required this.date,
+  });
+
+  @override
+  Widget build(BuildContext context,WidgetRef ref) {
+    final themeMode= ref.watch(themeModeProvider);
+    return Card(
+      color: themeMode==ThemeMode.light? Colors.white:Colors.black,
+      margin: const EdgeInsets.only(bottom: 8,left: 8,right: 8),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(12),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              placeholder: (context, url) =>const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Icon(Icons.error_outline),
+              height: 200,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 12,
+                      backgroundColor: Colors.grey,
+                      child: Icon(Icons.person, size: 16, color: Colors.white),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      author,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '•',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      date,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

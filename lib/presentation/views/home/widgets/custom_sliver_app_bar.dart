@@ -28,7 +28,7 @@ class CustomSliverAppBar extends ConsumerWidget {
       flexibleSpace: FlexibleSpaceBar(
         background: SafeArea(
           child: Container(
-            padding: const EdgeInsets.only(left: 18,right: 18,top: 60),
+            padding: const EdgeInsets.only(left: 18,right: 18,top: 30),
             decoration:  BoxDecoration(
               color: themeMode==ThemeMode.light? Color(0xffE9EEFA): Color(0xff1A1A1A),
             ),
